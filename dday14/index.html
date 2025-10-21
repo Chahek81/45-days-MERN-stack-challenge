@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog CMS Platform - Your Complete Content Management System</title>
+    <meta name="description" content="A modern, secure blog platform with user authentication and content management">
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <i class="fas fa-blog"></i>
+                <span>BlogCMS</span>
+            </div>
+            <div class="nav-menu" id="navMenu">
+                <a href="#home" class="nav-link active">Home</a>
+                <a href="#posts" class="nav-link">Posts</a>
+                <a href="#about" class="nav-link">About</a>
+                <div class="nav-auth" id="navAuth">
+                    <!-- Auth buttons will be populated by JavaScript -->
+                </div>
+            </div>
+            <div class="nav-toggle" id="navToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-container">
+            <div class="hero-content">
+                <h1 class="hero-title">
+                    Welcome to <span class="gradient-text">Blog CMS</span>
+                </h1>
+                <p class="hero-subtitle">
+                    A complete Content Management System with modern authentication, 
+                    beautiful design, and powerful features for bloggers and content creators.
+                </p>
+                <div class="hero-buttons">
+                    <button class="btn btn-primary" id="getStartedBtn">
+                        <i class="fas fa-rocket"></i>
+                        Get Started
+                    </button>
+                    <button class="btn btn-outline" id="learnMoreBtn">
+                        <i class="fas fa-info-circle"></i>
+                        Learn More
+                    </button>
+                </div>
+            </div>
+            <div class="hero-image">
+                <div class="hero-card">
+                    <i class="fas fa-edit"></i>
+                    <h3>Create Content</h3>
+                    <p>Write and manage your blog posts with our intuitive editor</p>
+                </div>
+                <div class="hero-card">
+                    <i class="fas fa-users"></i>
+                    <h3>User Management</h3>
+                    <p>Secure authentication and user role management</p>
+                </div>
+                <div class="hero-card">
+                    <i class="fas fa-chart-line"></i>
+                    <h3>Analytics</h3>
+                    <p>Track your content performance and user engagement</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Posts Section -->
+    <section id="posts" class="posts-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Latest Blog Posts</h2>
+                <p class="section-subtitle">Discover amazing content from our community</p>
+            </div>
+            
+            <!-- Filter Controls -->
+            <div class="filter-controls">
+                <div class="filter-group">
+                    <label for="categoryFilter">Category:</label>
+                    <select id="categoryFilter" class="filter-select">
+                        <option value="">All Categories</option>
+                        <option value="Technology">Technology</option>
+                        <option value="Lifestyle">Lifestyle</option>
+                        <option value="Business">Business</option>
+                        <option value="Education">Education</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="sortFilter">Sort by:</label>
+                    <select id="sortFilter" class="filter-select">
+                        <option value="newest">Newest</option>
+                        <option value="oldest">Oldest</option>
+                        <option value="popular">Most Popular</option>
+                        <option value="title">Title A-Z</option>
+                    </select>
+                </div>
+                <div class="search-group">
+                    <input type="text" id="searchInput" placeholder="Search posts..." class="search-input">
+                    <button id="searchBtn" class="search-btn">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Posts Grid -->
+            <div class="posts-grid" id="postsGrid">
+                <!-- Posts will be loaded here by JavaScript -->
+            </div>
+
+            <!-- Load More Button -->
+            <div class="load-more-container">
+                <button id="loadMoreBtn" class="btn btn-outline">
+                    <i class="fas fa-plus"></i>
+                    Load More Posts
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about-section">
+        <div class="container">
+            <div class="about-content">
+                <div class="about-text">
+                    <h2 class="section-title">About Blog CMS</h2>
+                    <p class="about-description">
+                        Blog CMS is a comprehensive Content Management System built with modern web technologies. 
+                        It features secure user authentication, role-based access control, and a beautiful, 
+                        responsive interface for managing blog content.
+                    </p>
+                    <div class="features-grid">
+                        <div class="feature-item">
+                            <i class="fas fa-shield-alt"></i>
+                            <h3>Secure Authentication</h3>
+                            <p>JWT-based authentication with password hashing and role management</p>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-mobile-alt"></i>
+                            <h3>Responsive Design</h3>
+                            <p>Beautiful, mobile-first design that works on all devices</p>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-database"></i>
+                            <h3>MongoDB Integration</h3>
+                            <p>Robust data storage with Mongoose ODM for data modeling</p>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-code"></i>
+                            <h3>Modern Stack</h3>
+                            <p>Built with Node.js, Express.js, and modern JavaScript</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Authentication Modals -->
+    <!-- Login Modal -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Login to Your Account</h2>
+                <span class="close" id="closeLogin">&times;</span>
+            </div>
+            <form id="loginForm" class="auth-form">
+                <div class="form-group">
+                    <label for="loginEmail">Email Address</label>
+                    <input type="email" id="loginEmail" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="loginPassword">Password</label>
+                    <input type="password" id="loginPassword" name="password" required>
+                </div>
+                <button type="submit" class="btn btn-primary btn-full">
+                    <i class="fas fa-sign-in-alt"></i>
+                    Login
+                </button>
+            </form>
+            <div class="auth-switch">
+                <p>Don't have an account? <a href="#" id="showRegister">Register here</a></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Register Modal -->
+    <div id="registerModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Create New Account</h2>
+                <span class="close" id="closeRegister">&times;</span>
+            </div>
+            <form id="registerForm" class="auth-form">
+                <div class="form-group">
+                    <label for="registerUsername">Username</label>
+                    <input type="text" id="registerUsername" name="username" required>
+                </div>
+                <div class="form-group">
+                    <label for="registerEmail">Email Address</label>
+                    <input type="email" id="registerEmail" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="registerPassword">Password</label>
+                    <input type="password" id="registerPassword" name="password" required>
+                </div>
+                <div class="form-group">
+                    <label for="registerBio">Bio (Optional)</label>
+                    <textarea id="registerBio" name="bio" rows="3"></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary btn-full">
+                    <i class="fas fa-user-plus"></i>
+                    Register
+                </button>
+            </form>
+            <div class="auth-switch">
+                <p>Already have an account? <a href="#" id="showLogin">Login here</a></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Dashboard Modal -->
+    <div id="dashboardModal" class="modal">
+        <div class="modal-content dashboard-content">
+            <div class="modal-header">
+                <h2>User Dashboard</h2>
+                <span class="close" id="closeDashboard">&times;</span>
+            </div>
+            <div class="dashboard-tabs">
+                <button class="tab-btn active" data-tab="profile">Profile</button>
+                <button class="tab-btn" data-tab="posts">My Posts</button>
+                <button class="tab-btn" data-tab="create">Create Post</button>
+            </div>
+            
+            <!-- Profile Tab -->
+            <div id="profileTab" class="tab-content active">
+                <div class="profile-info">
+                    <div class="profile-avatar">
+                        <img id="userAvatar" src="https://via.placeholder.com/150/007bff/ffffff?text=U" alt="User Avatar">
+                    </div>
+                    <div class="profile-details">
+                        <h3 id="userName">Username</h3>
+                        <p id="userEmail">user@example.com</p>
+                        <p id="userBio">User bio goes here</p>
+                    </div>
+                </div>
+                <button id="logoutBtn" class="btn btn-danger">
+                    <i class="fas fa-sign-out-alt"></i>
+                    Logout
+                </button>
+            </div>
+
+            <!-- Posts Tab -->
+            <div id="postsTab" class="tab-content">
+                <div class="posts-header">
+                    <h3>My Posts</h3>
+                    <button id="createPostBtn" class="btn btn-primary">
+                        <i class="fas fa-plus"></i>
+                        New Post
+                    </button>
+                </div>
+                <div id="userPosts" class="user-posts">
+                    <!-- User posts will be loaded here -->
+                </div>
+            </div>
+
+            <!-- Create Post Tab -->
+            <div id="createTab" class="tab-content">
+                <form id="createPostForm" class="post-form">
+                    <div class="form-group">
+                        <label for="postTitle">Post Title</label>
+                        <input type="text" id="postTitle" name="title" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="postExcerpt">Excerpt</label>
+                        <textarea id="postExcerpt" name="excerpt" rows="3"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="postContent">Content</label>
+                        <textarea id="postContent" name="content" rows="10" required></textarea>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="postCategory">Category</label>
+                            <select id="postCategory" name="category">
+                                <option value="General">General</option>
+                                <option value="Technology">Technology</option>
+                                <option value="Lifestyle">Lifestyle</option>
+                                <option value="Business">Business</option>
+                                <option value="Education">Education</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="postStatus">Status</label>
+                            <select id="postStatus" name="status">
+                                <option value="draft">Draft</option>
+                                <option value="published">Published</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="postTags">Tags (comma-separated)</label>
+                        <input type="text" id="postTags" name="tags" placeholder="javascript, web-development, tutorial">
+                    </div>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-save"></i>
+                        Save Post
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Spinner -->
+    <div id="loadingSpinner" class="loading-spinner">
+        <div class="spinner"></div>
+    </div>
+
+    <!-- Toast Notifications -->
+    <div id="toastContainer" class="toast-container"></div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Blog CMS</h3>
+                    <p>A modern Content Management System for bloggers and content creators.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Features</h4>
+                    <ul>
+                        <li>User Authentication</li>
+                        <li>Content Management</li>
+                        <li>Role-based Access</li>
+                        <li>Responsive Design</li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Technology</h4>
+                    <ul>
+                        <li>Node.js & Express</li>
+                        <li>MongoDB & Mongoose</li>
+                        <li>JWT Authentication</li>
+                        <li>Modern JavaScript</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Blog CMS Platform. Built with ❤️ for developers.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
