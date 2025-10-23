@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: day18-api
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: day18-api
+  template:
+    metadata:
+      labels:
+        app: day18-api
+    spec:
+      containers:
+        - name: api
+          image: day18-api:latest
+          ports:
+            - containerPort: 3000
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 3000
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 3000
+            initialDelaySeconds: 15
+            periodSeconds: 20
