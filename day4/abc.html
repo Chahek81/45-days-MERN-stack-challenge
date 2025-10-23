@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chahek Patwa - My Skill Manager</title>
+  <style>
+    /* ===== Background ===== */
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      color: #eee;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 40px;
+      background: #0f2027;
+      background-image: 
+        radial-gradient(circle at top left, rgba(0,255,231,0.2), transparent 25%),
+        radial-gradient(circle at bottom right, rgba(0,183,255,0.2), transparent 25%);
+      background-size: cover;
+      animation: bg-move 10s infinite alternate;
+    }
+
+    @keyframes bg-move {
+      from { background-position: 0% 0%; }
+      to { background-position: 100% 100%; }
+    }
+
+    /* ===== Container ===== */
+    .container {
+      background: #1e1e2f;
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.6);
+      max-width: 650px;
+      width: 100%;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 5px;
+      font-size: 2rem;
+      font-weight: bold;
+      color: #00ffe7;
+      text-shadow: 0 0 10px rgba(0, 255, 231, 0.6);
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 25px;
+      font-size: 1.2rem;
+      font-weight: normal;
+      color: #ccc;
+    }
+
+    /* ===== Form Section ===== */
+    .form {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    select, button {
+      padding: 10px 15px;
+      border-radius: 10px;
+      border: none;
+      font-size: 1rem;
+    }
+
+    select {
+      background: #2b2b3c;
+      color: #eee;
+    }
+
+    button {
+      background: #00ffe7;
+      color: #000;
+      font-weight: bold;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    button:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 10px rgba(0, 255, 231, 0.8);
+    }
+
+    /* ===== Skills List ===== */
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    li {
+      background: #2b2b3c;
+      margin: 12px 0;
+      padding: 15px 20px;
+      border-radius: 12px;
+      font-size: 1rem;
+      font-weight: 500;
+      color: #e0e0e0;
+      border-left: 4px solid #00ffe7;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    li:hover {
+      transform: translateX(10px) scale(1.02);
+      box-shadow: 0 0 15px rgba(0, 255, 231, 0.7);
+      background: #242437;
+    }
+
+    .desc {
+      font-size: 0.9rem;
+      color: #aaa;
+      margin-top: 4px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Chahek Patwa</h1>
+    <h2>My Skill Manager</h2>
+
+    <!-- Form Section -->
+    <div class="form">
+      <select id="language">
+        <option value="HTML">HTML</option>
+        <option value="CSS">CSS</option>
+        <option value="JavaScript">JavaScript</option>
+        <option value="React">React</option>
+        <option value="Node.js">Node.js</option>
+        <option value="Python">Python</option>
+        <option value="Java">Java</option>
+      </select>
+
+      <select id="proficiency">
+        <option value="Beginner">Beginner</option>
+        <option value="Intermediate">Intermediate</option>
+        <option value="Advanced">Advanced</option>
+        <option value="Expert">Expert</option>
+      </select>
+
+      <button onclick="addSkill()">Add Skill</button>
+    </div>
+
+    <!-- Skills List -->
+    <ul id="skill-list"></ul>
+  </div>
+
+  <script>
+    const skillList = document.getElementById('skill-list');
+
+    // Short descriptions for each skill
+    const descriptions = {
+      HTML: "The foundation of web pages, structures content on the internet.",
+      CSS: "Used to style and design websites with colors, layouts, and effects.",
+      JavaScript: "Adds interactivity and logic to web applications.",
+      React: "A powerful library for building modern UI components.",
+      "Node.js": "JavaScript runtime for backend development.",
+      Python: "Versatile language for data science, AI, and automation.",
+      Java: "Object-oriented language widely used for enterprise apps."
+    };
+
+    function addSkill() {
+      const language = document.getElementById('language').value;
+      const proficiency = document.getElementById('proficiency').value;
+
+      // Format skill
+      const skillText = `${language} (${proficiency})`;
+
+      // Create list item
+      const li = document.createElement('li');
+      li.innerHTML = `<strong>${skillText}</strong><div class="desc">${descriptions[language]}</div>`;
+
+      // Append to list
+      skillList.appendChild(li);
+
+      console.log("Added:", skillText);
+    }
+  </script>
+</body>
+</html>
