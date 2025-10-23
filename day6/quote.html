@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Random Quote Generator</title>
+  <style>
+    /* Background Gradient Animation */
+    body {
+      height: 100vh;
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: "Poppins", sans-serif;
+      background: linear-gradient(-45deg, #ff6b6b, #feca57, #48dbfb, #1dd1a1);
+      background-size: 400% 400%;
+      animation: gradientBG 12s ease infinite;
+    }
+    @keyframes gradientBG {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    /* Quote Box Glass Effect */
+    .quote-box {
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(15px);
+      border-radius: 16px;
+      padding: 2rem;
+      text-align: center;
+      color: #000; /* black text */
+      max-width: 600px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+      animation: fadeIn 0.8s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .quote {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+      font-weight: 500;
+      line-height: 1.6;
+    }
+
+    .author {
+      font-size: 1.1rem;
+      font-style: italic;
+      margin-bottom: 1.5rem;
+      opacity: 0.8;
+    }
+
+    /* Buttons */
+    .btn-container {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    button {
+      background: rgba(0, 0, 0, 0.1);
+      border: none;
+      padding: 0.7rem 1.5rem;
+      border-radius: 30px;
+      font-size: 1rem;
+      color: #000; /* black text */
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    button:hover {
+      background: rgba(0, 0, 0, 0.2);
+      transform: scale(1.05);
+    }
+  </style>
+</head>
+<body>
+  <div class="quote-box">
+    <p class="quote">Loading quote...</p>
+    <p class="author"></p>
+    <div class="btn-container">
+      <button id="new-quote">✨ New Quote</button>
+      <button id="copy-quote">📋 Copy</button>
+      <button id="tweet-quote">🐦 Tweet</button>
+    </div>
+  </div>
+
+  <script>
+    const quoteText = document.querySelector('.quote');
+    const quoteAuthor = document.querySelector('.author');
+    const newQuoteBtn = document.getElementById('new-quote');
+    const copyBtn = document.getElementById('copy-quote');
+    const tweetBtn = document.getElementById('tweet-quote');
+
+    const proxy = "https://cors-anywhere.herokuapp.com/";
+    const api = "https://zenquotes.io/api/random";
+
+    async function getQuote() {
+      try {
+        const response = await fetch(proxy + api);
+        if (!response.ok) throw new Error("HTTP error " + response.status);
+        const data = await response.json();
+        quoteText.textContent = `"${data[0].q}"`;
+        quoteAuthor.textContent = `— ${data[0].a}`;
+      } catch (error) {
+        console.error("Error fetching quote:", error);
+        quoteText.textContent = "Oops! Couldn't fetch a quote.";
+        quoteAuthor.textContent = "";
+      }
+    }
+
+    // Copy Quote
+    copyBtn.addEventListener("click", () => {
+      const text = `${quoteText.textContent} ${quoteAuthor.textContent}`;
+      navigator.clipboard.writeText(text);
+      copyBtn.textContent = "✅ Copied!";
+      setTimeout(() => copyBtn.textContent = "📋 Copy", 1500);
+    });
+
+    // Tweet Quote
+    tweetBtn.addEventListener("click", () => {
+      const text = `${quoteText.textContent} ${quoteAuthor.textContent}`;
+      const twitterUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}`;
+      window.open(twitterUrl, "_blank");
+    });
+
+    // Load initial quote
+    getQuote();
+
+    // New Quote button
+    newQuoteBtn.addEventListener('click', () => {
+      getQuote();
+      document.querySelector(".quote-box").style.animation = "none";
+      void document.querySelector(".quote-box").offsetWidth; // restart animation
+      document.querySelector(".quote-box").style.animation = "fadeIn 0.8s ease";
+    });
+  </script>
+</body>
+</html>
